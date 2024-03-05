@@ -9,7 +9,7 @@ db_users = [
 mysql_log_file_path = "mysql-slow.log"
 extract_to_dir_path = "outputs"
 
-just_that_take_long_time = 1
+just_that_takes_more_time_than = 1 # int second
 without_repetition = 1
 
 if os.path.exists(extract_to_dir_path):
@@ -84,8 +84,8 @@ with open(mysql_log_file_path, "r") as input_file:
 
                 if "# Query_time: " in line:
                     if allow == 1:
-                        if just_that_take_long_time == 1:
-                            if int(line[14:15]) < 1:
+                        if just_that_takes_more_time_than > 0:
+                            if int(line[14:15]) < just_that_takes_more_time_than:
                                 query = ""
                                 user_line = ""
                                 allow = 0
